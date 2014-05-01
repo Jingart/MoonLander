@@ -103,7 +103,6 @@ void close()
 	Graphics::gWindow = NULL;
 	Graphics::gRenderer = NULL;
 
-	//Quit SDL subsystems
 	IMG_Quit();
 	SDL_Quit();
 }
