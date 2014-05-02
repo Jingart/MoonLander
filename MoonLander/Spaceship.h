@@ -15,6 +15,15 @@ public:
 	static const int SCREEN_HEIGHT = 480;
 
 	static const float NATURAL_G;
+	static const float JET_POWER;
+
+	enum Action{
+		idle,
+		moveup,
+		movedown,
+		moveleft,
+		moveright
+	};
 
 	//Maximum axis velocity of the dot
 	//static const int DOT_VEL = 10;
@@ -25,9 +34,9 @@ public:
 	~Spaceship(void);
 
 	//Takes key presses and adjusts the dot's velocity
-	void handleEvent(SDL_Event& e , float deltaTime);
-	void move(float deltaTime);
-	void render(Texture &texture);
+	//void handleEvent(SDL_Event& e , float deltaTime);
+	void Update(float deltaTime, Action landerAction);
+	void Render(Texture &texture);
 
 private:
 
