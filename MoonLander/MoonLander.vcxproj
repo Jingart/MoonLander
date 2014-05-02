@@ -43,8 +43,8 @@
     <LibraryPath>G:\project\2d_sdl\sdk\SDL2_image-2.0.0\lib\x86;G:\project\2d_sdl\sdk\SDL2-2.0.3\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>G:\project\2d_sdl\sdk\SDL2-2.0.3\include;G:\project\2d_sdl\sdk\SDL2_image-2.0.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>G:\project\2d_sdl\sdk\SDL2-2.0.3\lib\x86;G:\project\2d_sdl\sdk\SDL2_image-2.0.0\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)SDK\SDL2_image-2.0.0\include;$(SolutionDir)SDK\SDL2-2.0.3\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)SDK\SDL2-2.0.3\lib\x86;$(SolutionDir)SDK\SDL2_image-2.0.0\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -73,12 +73,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Spaceship.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameTimer.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Spaceship.h" />
     <ClInclude Include="Texture.h" />

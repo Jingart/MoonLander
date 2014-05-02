@@ -8,12 +8,14 @@
 #include "Texture.h"
 #include "Graphics.h"
 #include <windows.h>
+#include "GameTimer.h"
 
 using namespace std;
 
 Texture gLanderTexture;
+GameTimer gTimer;
 
-bool init()
+bool initSDL()
 {
 	//Initialization flag
 	bool success = true;
@@ -33,7 +35,7 @@ bool init()
 		}
 
 		//Create window
-		Graphics::gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, Graphics::SCREEN_WIDTH, Graphics::SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		Graphics::gWindow = SDL_CreateWindow( "MoonLander", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, Graphics::SCREEN_WIDTH, Graphics::SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( Graphics::gWindow == NULL )
 		{
 			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
@@ -109,8 +111,11 @@ void close()
 
 int main( int argc, char* args[] )
 {
+	//Init timer by reseting
+	gTimer.Reset();
+
 	//Start up SDL and create window
-	if( !init() )
+	if( !initSDL() )
 	{
 		printf( "Failed to initialize!\n" );
 	}
@@ -135,6 +140,9 @@ int main( int argc, char* args[] )
 			//While application is running
 			while( !quit )
 			{
+				//Tick timer forward
+				gTimer.Tick();
+
 				//Handle events on queue
 				while( SDL_PollEvent( &e ) != 0 )
 				{
@@ -145,7 +153,7 @@ int main( int argc, char* args[] )
 					}
 
 					//Handle input for the dot
-					ship.handleEvent( e );
+					ship.handleEvent(e, gTimer.DeltaTime());
 				}
 
 				//Move the dot

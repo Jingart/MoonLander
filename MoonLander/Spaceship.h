@@ -7,7 +7,6 @@ class Spaceship
 {
 public:
 
-
 	//The dimensions of the dot
 	static const int DOT_WIDTH = 78;
 	static const int DOT_HEIGHT = 78;
@@ -16,7 +15,7 @@ public:
 	static const int SCREEN_HEIGHT = 480;
 
 	//Maximum axis velocity of the dot
-	static const int DOT_VEL = 10;
+	//static const int DOT_VEL = 10;
 
 	//Initializes the variables
 	//Dot();
@@ -24,14 +23,18 @@ public:
 	~Spaceship(void);
 
 	//Takes key presses and adjusts the dot's velocity
-	void handleEvent( SDL_Event& e );
+	void handleEvent(SDL_Event& e , float deltaTime);
 	void move();
 	void render(Texture &texture);
 
 private:
 
-	int mPosX, mPosY;
-	int mVelX, mVelY;
+	float mAcceleration;
+	float mMaxSpeed;
+	float mPosX; 
+	float mPosY;
+	float mSpeedX;
+	float mSpeedY;
 };
 
 
