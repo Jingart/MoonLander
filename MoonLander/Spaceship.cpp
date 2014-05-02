@@ -1,20 +1,33 @@
 #include "spaceship.h"
 
+const float Spaceship::NATURAL_G = 0.00000981;
+
 
 Spaceship::Spaceship(void)
 {
 	//Initialize the offsets
-    //mPosX = 0;
-    //mPosY = 0;
-	mPosX = SCREEN_WIDTH / 2 - DOT_WIDTH / 2;
-	mPosY = SCREEN_HEIGHT - DOT_HEIGHT;
+	//mPosX = SCREEN_WIDTH / 2 - DOT_WIDTH / 2;
+	//mPosY = SCREEN_HEIGHT - DOT_HEIGHT;
 
-    //Initialize the velocity
-    mSpeedX = 0;
-    mSpeedY = 0;
+	//jetX = SCREEN_WIDTH / 2;
+	//jetY = SCREEN_HEIGHT;
 
-	mAcceleration = 50.f;
-	mMaxSpeed = 1000.f;
+	
+
+	mPosX = 0;
+	mPosY = 0;
+
+	jetX = DOT_WIDTH / 2;
+	jetY = DOT_HEIGHT / 2;
+
+    landerSpeedX = 0;
+    landerSpeedY = 0;
+
+	jetAccelerationX = 0;
+	jetAccelerationY = 0;
+
+	//mAcceleration = 50.f;
+	//mMaxSpeed = 1000.f;
 }
 
 
@@ -50,49 +63,66 @@ void Spaceship::handleEvent(SDL_Event& e, float deltaTime)
  //       }
  //   }
 
+
+
+
+
+
 	//If a key was pressed
-	if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
-    {
-        //Adjust the velocity
-        switch( e.key.keysym.sym )
-        {
-            case SDLK_UP: 
-				mSpeedY -= deltaTime * mAcceleration; 
-				break;
-            case SDLK_DOWN: 
-				mSpeedY += deltaTime * mAcceleration; 
-				break;
-            case SDLK_LEFT: 
-				mSpeedX -= deltaTime * mAcceleration; 
-				break;
-            case SDLK_RIGHT: 
-				mSpeedX += deltaTime * mAcceleration; 
-				break;
-        }
-    }
+	//if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
+ //   {
+ //       //Adjust the velocity
+ //       switch( e.key.keysym.sym )
+ //       {
+ //           case SDLK_UP: 
+	//			mSpeedY -= deltaTime * mAcceleration; 
+	//			break;
+ //           case SDLK_DOWN: 
+	//			mSpeedY += deltaTime * mAcceleration; 
+	//			break;
+ //           case SDLK_LEFT: 
+	//			mSpeedX -= deltaTime * mAcceleration; 
+	//			break;
+ //           case SDLK_RIGHT: 
+	//			mSpeedX += deltaTime * mAcceleration; 
+	//			break;
+ //       }
+ //   }
 }
 
-void Spaceship::move()
+void Spaceship::move(float deltaTime)
 {
-    //Move the dot left or right
-    mPosX += mSpeedX;
+    ////Move the dot left or right
+    //mPosX += mSpeedX;
 
-    //If the dot went too far to the left or right
-    if( ( mPosX < 0 ) || ( mPosX + DOT_WIDTH > SCREEN_WIDTH ) )
+    ////If the dot went too far to the left or right
+    //if( ( mPosX < 0 ) || ( mPosX + DOT_WIDTH > SCREEN_WIDTH ) )
+    //{
+    //    //Move back
+    //    mPosX -= mSpeedX;
+    //}
+
+    ////Move the dot up or down
+    //mPosY += mSpeedY;
+
+    ////If the dot went too far up or down
+    //if( ( mPosY < 0 ) || ( mPosY + DOT_HEIGHT > SCREEN_HEIGHT ) )
+    //{
+    //    //Move back
+    //    mPosY -= mSpeedY;
+    //}
+
+	mPosX = mPosX += landerSpeedX/deltaTime;
+	mPosY = mPosY += landerSpeedY/deltaTime;
+	
+	landerSpeedY = landerSpeedY += NATURAL_G/deltaTime;
+	if( ( mPosY < 0 ) || ( mPosY + DOT_HEIGHT > SCREEN_HEIGHT ) )
     {
-        //Move back
-        mPosX -= mSpeedX;
+        landerSpeedY = 0;
     }
 
-    //Move the dot up or down
-    mPosY += mSpeedY;
+	
 
-    //If the dot went too far up or down
-    if( ( mPosY < 0 ) || ( mPosY + DOT_HEIGHT > SCREEN_HEIGHT ) )
-    {
-        //Move back
-        mPosY -= mSpeedY;
-    }
 }
 
 void Spaceship::render(Texture &texture)

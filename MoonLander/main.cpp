@@ -157,7 +157,7 @@ int main( int argc, char* args[] )
 				}
 
 				//Move the dot
-				ship.move();
+				ship.move(gTimer.DeltaTime());
 
 				//Clear screen
 				SDL_SetRenderDrawColor( Graphics::gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );

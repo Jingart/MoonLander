@@ -14,6 +14,8 @@ public:
 	static const int SCREEN_WIDTH = 640;
 	static const int SCREEN_HEIGHT = 480;
 
+	static const float NATURAL_G;
+
 	//Maximum axis velocity of the dot
 	//static const int DOT_VEL = 10;
 
@@ -24,17 +26,25 @@ public:
 
 	//Takes key presses and adjusts the dot's velocity
 	void handleEvent(SDL_Event& e , float deltaTime);
-	void move();
+	void move(float deltaTime);
 	void render(Texture &texture);
 
 private:
 
-	float mAcceleration;
-	float mMaxSpeed;
+	//float mAcceleration;
+	//float mMaxSpeed;
+
 	float mPosX; 
 	float mPosY;
-	float mSpeedX;
-	float mSpeedY;
+
+	float landerSpeedX;
+	float landerSpeedY;
+
+	float jetY;
+	float jetX;
+
+	float jetAccelerationY;
+	float jetAccelerationX;
 };
 
 
