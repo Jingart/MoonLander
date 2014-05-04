@@ -76,11 +76,8 @@ bool initSDL()
 	return success;
 }
 
-bool loadMedia()
+string getApplicationPath()
 {
-	//Loading success flag
-	bool success = true;
-
 	char buffer[MAX_PATH];
 	GetModuleFileName( NULL, buffer, MAX_PATH );
 
@@ -88,11 +85,19 @@ bool loadMedia()
 	if (pos != NULL) 
 	   *pos = '\0';
 
-	string p(buffer);
+	string appPath(buffer);
+	return appPath;
+}
+
+bool loadMedia()
+{
+	//Loading success flag
+	bool success = true;
+
+	string appPath = getApplicationPath();
 
 	//Load texture
-	if( !gLanderTexture.loadFromFile( p + "\\Assets\\lander.png" ) )
-	{
+	if( !gLanderTexture.loadFromFile( appPath + "\\Assets\\lander.png" ) ){
 		printf( "Failed to load dot texture!\n" );
 		success = false;
 	}
@@ -125,22 +130,24 @@ void Update(const Uint8* keystate)
 		printf("UP\n");
 		landerAction = Spaceship::moveup;
 	}
-	else if(keystate[SDL_SCANCODE_DOWN])
+	
+	if(keystate[SDL_SCANCODE_DOWN])
 	{
 		printf("Down\n");
 		landerAction = Spaceship::movedown;
 	}
-	else if(keystate[SDL_SCANCODE_LEFT])
+	
+	if(keystate[SDL_SCANCODE_LEFT])
 	{
 		printf("Left\n");
 		landerAction = Spaceship::moveleft;
 	}
-	else if(keystate[SDL_SCANCODE_RIGHT])
+
+	if(keystate[SDL_SCANCODE_RIGHT])
 	{
 		printf("Right\n");
 		landerAction = Spaceship::moveright;
 	}
-
 
 	gShip.Update(gTimer.DeltaTime(), landerAction);
 
@@ -189,6 +196,13 @@ int main( int argc, char* args[] )
 				//Clear screen
 				SDL_SetRenderDrawColor( Graphics::gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
 				SDL_RenderClear( Graphics::gRenderer );
+
+
+				//Render red filled quad
+				//SDL_Rect fillRect = { 50, 50, 50, 50 };
+				//SDL_SetRenderDrawColor( Graphics::gRenderer, 0xFF, 0x00, 0x00, 0xFF );		
+				//SDL_RenderFillRect( Graphics::gRenderer, &fillRect );
+
 
 				//Render objects
 				gShip.Render(gLanderTexture);

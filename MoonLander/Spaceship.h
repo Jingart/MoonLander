@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "Texture.h"
+#include "Graphics.h"
 
 class Spaceship
 {
@@ -10,9 +11,6 @@ public:
 	//The dimensions of the dot
 	static const int DOT_WIDTH = 78;
 	static const int DOT_HEIGHT = 78;
-
-	static const int SCREEN_WIDTH = 640;
-	static const int SCREEN_HEIGHT = 480;
 
 	static const float NATURAL_G;
 	static const float JET_POWER;
@@ -42,6 +40,7 @@ private:
 
 	//float mAcceleration;
 	//float mMaxSpeed;
+	float ApplyGravity();
 
 	float mPosX; 
 	float mPosY;
@@ -54,6 +53,8 @@ private:
 
 	float jetAccelerationY;
 	float jetAccelerationX;
+
+	float mDeltaTime;
 };
 
 
